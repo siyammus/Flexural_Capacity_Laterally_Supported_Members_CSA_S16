@@ -1,0 +1,1 @@
+# Flexural_Capacity_Laterally_Supported_Members_CSA_S16
