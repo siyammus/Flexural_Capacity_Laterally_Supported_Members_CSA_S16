@@ -2,10 +2,7 @@ import sectionproperties.pre.library.steel_sections as steel_geom
 from sectionproperties.pre.pre import Material
 from sectionproperties.analysis.section import Section
 from handcalcs.decorator import handcalc
-from typing import Optional
 import math
-import numpy as np
-import W_section_sectionprop as Wsec
 
 calc_renderer = handcalc()
 
@@ -106,89 +103,3 @@ def flexural_capacity_LTB(flange_width:float,
         else:
             print("Mr is to be computed for Class 4 Section")
     return L, Mr
-
-### Compare Values obtained from Steel Hanbook with Section properties values
-
-
-# def flexural_capacity_LTB_from_sectionprop(flange_width:float, 
-#                           flange_thickness:float, 
-#                           fy:float,
-#                           phi:float, 
-#                           zxx1:float,
-#                           zyy2:float, 
-#                           sxx:float, 
-#                           syy:float,
-#                           E:float, 
-#                           G:float, 
-#                           iyy_c:float, 
-#                           j:float, 
-#                           Iw:float,  
-#                           L_min:float,
-#                           L_max:float,
-#                           interval:float,
-#                           omega:float = 1.0) -> list:
-#     """
-#     This function calculates the flexural capacity of laterally unsupported
-#     W Class 1, 2 or 3 sections
-#     """
-
-
-
-#     print(f"Area = {area:.1f} mm2")
-#     print(f"Ixx = {ixx_c:.3e} mm4")
-#     print(f"Iyy = {iyy_c:.3e} mm4")
-#     print(f"Ixy = {ixy_c:.3e} mm4")
-#     print(f"Principal axis angle = {phi:.1f} deg")
-#     print(f"Torsion constant = {j:.3e} mm4")
-#     print(f"Zxx = {sxx:.3e} mm3")
-#     print(f"Zyy = {syy:.3e} mm3")
-#     print(f"Sxx = {zxx1:.3e} mm3")
-#     print(f"Syy = {zyy2:.3e} mm3")
-#     print(f"Warping constant = {Iw:.3e} mm6")
-
-#     # Classification of a section
-#     section_class = class_of_section(flange_width, flange_thickness, fy)
-    
-#     # Elastic and Plastic moment capacities in major and minor axes
-#     My_x_sp = phi * zxx1 * fy
-#     Mp_x_sp = phi * sxx * fy
-
-#     My_y = phi * zyy2 * fy
-#     Mp_y = phi * syy * fy
-
-#     #Critical Elastic moment of unbraced segment
-#     # L = createList(L_min, L_max, interval)
-#     #Critical Elastic moment of unbraced segment
-#     Mu_sp = []
-#     Mr_sp = []
-#     L = list(range(L_min, L_max+interval, interval))
-
-#     for i in L:
-#         Mui_sp = ((omega * math.pi)/(1.2*i)) * math.sqrt(E*iyy_c*G*j + ((math.pi*E) / i)**2 * iyy_c * Iw)
-#         if (section_class == 1) and (Mui_sp > 0.67*Mp_x_sp):
-#             Mri_sp = min(1.15*phi*Mp_x_sp* (1 - ((0.28*Mp_x_sp)/Mui_sp)), phi*Mp_x_sp)
-#             Mu_sp.append(Mui_sp)
-#             Mr_sp.append(Mri_sp)
-#         elif (section_class == 2) and (Mui_sp > 0.67*Mp_x_sp):
-#             Mri_sp = min(1.15*phi*Mp_x_sp * (1 - ((0.28*Mp_x_sp)/Mui)), phi*Mp_x_sp)
-#             Mu_sp.append(Mui_sp)
-#             Mr_sp.append(Mri_sp)
-#         elif (section_class == 1) and (Mui_sp <= 0.67*Mp_x_sp):
-#             Mri_sp = phi*Mui_sp
-#             Mu_sp.append(Mui_sp)
-#             Mr_sp.append(Mri_sp)
-#         elif (section_class == 2) and (Mui_sp <= 0.67*Mp_x_sp):
-#             Mri_sp = phi*Mui_sp
-#             Mu_sp.append(Mui)
-#             Mr_sp.append(Mri_sp)
-#         elif (section_class == 3) and (Mui > 0.67*My_x_sp):
-#             Mri_sp = min(1.15*phi*My_x_sp * (1 - ((0.28*My_x_sp)/Mui)), phi*My_x_sp)
-#             Mu_sp.append(Mui)
-#             Mr_sp.append(Mri)
-#         elif (section_class == 3) and (Mui <= 0.67*My_x_sp):
-#             Mri_sp = phi*Mui_sp
-#             Mu_sp.append(Mui_sp)
-#             Mr_sp.append(Mri_sp)
-#         else:
-#             print("Mr is to be computed for Class 4 Section")
-#     return L, Mr_sp
