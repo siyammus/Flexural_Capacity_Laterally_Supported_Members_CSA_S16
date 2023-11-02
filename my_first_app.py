@@ -5,7 +5,6 @@ from sectionproperties.pre.pre import Material
 from sectionproperties.analysis.section import Section
 import calculations as calc
 
-
 st.header("Flexural Capacity of Laterally Unsupported Class 1/2/3 W-Sections")
 
 st.sidebar.subheader("Results Parameters")
